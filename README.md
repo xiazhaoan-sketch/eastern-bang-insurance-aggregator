@@ -45,3 +45,4 @@ The Django admin lives at `/admin/`.
 
 - Locally, create a superuser with `python manage.py createsuperuser` or populate the `DJANGO_SUPERUSER_*` variables and run `python manage.py create_default_superuser`.
 - In Render, the deploy hook runs `python manage.py create_default_superuser` automatically; make sure `DJANGO_SUPERUSER_USERNAME` and `DJANGO_SUPERUSER_PASSWORD` are set in the service settings.
+- The blueprint and `.env.example` currently seed the admin account with username `admin` and password `admin`. Change these values immediately in production to keep the instance secure.

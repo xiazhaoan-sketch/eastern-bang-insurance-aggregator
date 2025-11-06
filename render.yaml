@@ -18,11 +18,11 @@ services:
           name: insurance-aggregator-db
           property: connectionString
       - key: DJANGO_SUPERUSER_USERNAME
-        value: ""
+        value: "admin"
       - key: DJANGO_SUPERUSER_PASSWORD
-        value: ""
+        value: "admin"
       - key: DJANGO_SUPERUSER_EMAIL
-        value: ""
+        value: "admin@example.com"
 databases:
   - name: insurance-aggregator-db
     plan: free
