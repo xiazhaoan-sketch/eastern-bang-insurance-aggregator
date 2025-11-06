@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: insurance-aggregator
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: gunicorn insurance_aggregator.wsgi:application
+    preDeployCommand: python manage.py migrate
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: PYTHON_VERSION
+        value: "3.9.6"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: insurance-aggregator-db
+          property: connectionString
+databases:
+  - name: insurance-aggregator-db
+    plan: free
