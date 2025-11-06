@@ -23,6 +23,7 @@ The app reads configuration from the environment with sensible local defaults:
 - `DJANGO_DEBUG`: set to `False` for Render (`True` by default locally).
 - `DJANGO_ALLOWED_HOSTS`: comma-separated hostnames. When unset, local hosts are used and Render falls back to `RENDER_EXTERNAL_HOSTNAME`.
 - `DATABASE_URL`: SQLite by default; Render injects the Postgres URL automatically via `render.yaml`.
+- `DJANGO_SUPERUSER_USERNAME`, `DJANGO_SUPERUSER_PASSWORD`, `DJANGO_SUPERUSER_EMAIL`: optional helpers for non-interactive admin creation (see below).
 
 Copy `.env.example` to `.env` for local overrides if you are using a virtualenv.
 
@@ -34,5 +35,13 @@ The repo includes a `Procfile` and a `render.yaml` blueprint. To deploy:
 2. In Render, create a new Blueprint and point it at the repository.
 3. Render provisions the Postgres database defined in `render.yaml`, installs dependencies, runs `collectstatic`, and applies migrations before every deploy.
 4. Set `DJANGO_SECRET_KEY` to a strong value (Render will generate one automatically from the blueprint) and keep `DJANGO_DEBUG=False`.
+5. Populate `DJANGO_SUPERUSER_*` variables with the credentials you want for the initial admin account. The password should be stored as a secret in Render.
 
 The service starts with `gunicorn insurance_aggregator.wsgi:application` and serves static assets via Whitenoise. Collect static assets with `python manage.py collectstatic --noinput` before each deployment; this step is already part of the Render build command.
+
+## Admin access
+
+The Django admin lives at `/admin/`.
+
+- Locally, create a superuser with `python manage.py createsuperuser` or populate the `DJANGO_SUPERUSER_*` variables and run `python manage.py create_default_superuser`.
+- In Render, the deploy hook runs `python manage.py create_default_superuser` automatically; make sure `DJANGO_SUPERUSER_USERNAME` and `DJANGO_SUPERUSER_PASSWORD` are set in the service settings.

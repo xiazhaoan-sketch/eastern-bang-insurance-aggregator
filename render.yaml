@@ -5,7 +5,7 @@ services:
     plan: free
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
     startCommand: gunicorn insurance_aggregator.wsgi:application
-    preDeployCommand: python manage.py migrate
+    preDeployCommand: python manage.py migrate && python manage.py create_default_superuser
     envVars:
       - key: DJANGO_SECRET_KEY
         generateValue: true
@@ -17,6 +17,12 @@ services:
         fromDatabase:
           name: insurance-aggregator-db
           property: connectionString
+      - key: DJANGO_SUPERUSER_USERNAME
+        value: ""
+      - key: DJANGO_SUPERUSER_PASSWORD
+        value: ""
+      - key: DJANGO_SUPERUSER_EMAIL
+        value: ""
 databases:
   - name: insurance-aggregator-db
     plan: free
