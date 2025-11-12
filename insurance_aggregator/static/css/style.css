@@ -69,6 +69,24 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 1;
+    transition: transform 300ms ease, box-shadow 300ms ease;
+    will-change: transform, box-shadow;
+}
+
+.floating-card:hover {
+    transform: translateY(-6px);
+}
+
+.hero-compare-card {
+    padding: clamp(2.25rem, 4vw, 3rem);
+    min-height: 380px;
+    width: min(100%, 480px);
+    animation: heroGlassPulse 12s ease-in-out infinite;
+    box-shadow: 0 30px 70px rgba(10, 37, 64, 0.25);
+}
+
+.hero-compare-card:hover {
+    animation-play-state: paused;
 }
 
 .shape {
@@ -249,6 +267,21 @@
     }
     100% {
         transform: translateY(-20px);
+    }
+}
+
+@keyframes heroGlassPulse {
+    0% {
+        box-shadow: 0 25px 60px rgba(10, 37, 64, 0.2);
+        border-color: rgba(255, 255, 255, 0.45);
+    }
+    50% {
+        box-shadow: 0 40px 85px rgba(10, 37, 64, 0.32);
+        border-color: rgba(255, 255, 255, 0.7);
+    }
+    100% {
+        box-shadow: 0 25px 60px rgba(10, 37, 64, 0.2);
+        border-color: rgba(255, 255, 255, 0.45);
     }
 }
 
