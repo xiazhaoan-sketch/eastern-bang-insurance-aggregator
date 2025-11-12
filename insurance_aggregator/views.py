@@ -1,5 +1,24 @@
+from typing import Optional
+
 from django.shortcuts import render
 from django.templatetags.static import static
+
+from .data_loader import (
+    comparison_fields,
+    filter_plans,
+    get_unique_cities,
+    load_plan_catalog,
+    summarize_plans,
+)
+
+MEMBER_OPTIONS = [
+    {'value': 'adult', 'label': 'Adult Student', 'description': 'Age 18–64 coverage', 'icon': '👤'},
+    {'value': 'child', 'label': 'Child / Dependent', 'description': 'K-12 or dependent visa', 'icon': '🧒'},
+    {'value': 'family', 'label': 'Family', 'description': 'Plans that cover both adults & kids', 'icon': '👨‍👩‍👦'},
+    {'value': 'government', 'label': 'Gov & Public Programs', 'description': 'Medicaid, CHIP, TRICARE, etc.', 'icon': '🏛️'},
+]
+
+DEFAULT_AGE = 24
 
 
 def home(request):
@@ -47,36 +66,79 @@ def about(request):
     return render(request, 'about.html')
 
 
+def _sanitize_member_choice(choice: str) -> str:
+    valid = {option['value'] for option in MEMBER_OPTIONS}
+    return choice if choice in valid else 'adult'
+
+
+def _parse_age(raw_age: Optional[str]) -> int:
+    if not raw_age:
+        return DEFAULT_AGE
+    try:
+        value = int(raw_age)
+    except (TypeError, ValueError):
+        return DEFAULT_AGE
+    return max(0, min(80, value))
+
+
+def _build_comparison_rows(plans: list, specs: list) -> list:
+    rows = []
+    for spec in specs:
+        values = []
+        for plan in plans:
+            raw_value = plan.get(spec['key'])
+            if spec.get('type') == 'bool':
+                value = 'Yes' if raw_value else 'No'
+            else:
+                value = raw_value or '—'
+            values.append(value)
+        rows.append({'label': spec['label'], 'values': values})
+    return rows
+
+
 def product(request):
+    catalog = load_plan_catalog()
+    cities = get_unique_cities(catalog) or ['New Haven, CT']
+
+    selected_member = _sanitize_member_choice(request.GET.get('member', 'adult'))
+    selected_age = _parse_age(request.GET.get('age'))
+    selected_city = request.GET.get('city') or cities[0]
+    if selected_city not in cities:
+        selected_city = cities[0]
+
+    filtered = filter_plans(catalog, selected_member, selected_age, selected_city)
+    fallback_to_all = False
+    if not filtered:
+        filtered = catalog
+        fallback_to_all = True
+
+    featured_plans = filtered[:4]
+    comparison_plans = filtered[:3]
+    field_specs = comparison_fields()
+    comparison_rows = _build_comparison_rows(comparison_plans, field_specs)
+    summary = summarize_plans(filtered)
+    city_label = 'city' if summary['city_count'] == 1 else 'cities'
+    plan_summary = (
+        f"{summary['plan_count']} plans · {summary['provider_count']} providers · "
+        f"{summary['city_count']} {city_label}"
+    )
+    plan_summary_secondary = (
+        f"{summary['child_ready']} cover dependents · {summary['adult_ready']} adult-ready"
+    )
+
     context = {
-        'member_options': ['Self', 'Spouse', 'Child', 'Parent'],
-        'cities': ['New Haven', 'Cambridge', 'New York'],
-        'plan_summary': '92+ plans found, 18 insurers, from $25/mo',
-        'plans': [
-            {
-                'name': 'SafeVoyage Plus',
-                'category': 'Comprehensive',
-                'price': 32,
-                'perks': ['$500k medical coverage', 'Emergency evacuation', 'Virtual doctor visits'],
-            },
-            {
-                'name': 'CampusCare Elite',
-                'category': 'Value',
-                'price': 41,
-                'perks': ['Sports injury coverage', 'Prescription savings', 'Worldwide assistance'],
-            },
-        ],
-        'comparison_plans': [
-            {'name': 'SafeVoyage Plus'},
-            {'name': 'CampusCare Elite'},
-            {'name': 'Atlas Explorer'},
-        ],
-        'comparison_rows': [
-            {'benefit': 'Medical Coverage', 'values': ['$500k', '$250k', '$750k']},
-            {'benefit': 'Emergency Evacuation', 'values': ['Included', '$100 deductible', 'Included']},
-            {'benefit': 'Accident Support', 'values': ['24/7 Team', 'Business hours', 'Dedicated rep']},
-            {'benefit': 'Adventure & Sports', 'values': ['Recreational', 'Limited', 'Extreme sports']},
-        ],
+        'member_options': MEMBER_OPTIONS,
+        'cities': cities,
+        'selected_member': selected_member,
+        'selected_age': selected_age,
+        'selected_city': selected_city,
+        'featured_plans': featured_plans,
+        'plan_summary': plan_summary,
+        'plan_summary_secondary': plan_summary_secondary,
+        'results_count': summary['plan_count'],
+        'fallback_to_all': fallback_to_all,
+        'comparison_plans': comparison_plans,
+        'comparison_rows': comparison_rows,
     }
     return render(request, 'product.html', context)
 
