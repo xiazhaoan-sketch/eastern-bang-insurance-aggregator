@@ -35,24 +35,24 @@
         </div>
         <div class="relative flex justify-center lg:justify-end">
             <div class="floating-card hero-compare-card shadow-floating w-full mx-auto lg:mx-0 lg:ml-auto lg:self-center">
-                <p class="text-sm uppercase text-white/60 tracking-wide">Live Comparison</p>
-                <h3 class="text-2xl font-semibold mt-3 text-white">Coverage snapshot</h3>
+                <p class="text-sm uppercase text-white/70 tracking-[0.3em] hero-card-text" style="--delay: 0.05s">Live Comparison</p>
+                <h3 class="text-2xl font-semibold mt-3 text-white hero-card-text" style="--delay: 0.15s">Coverage snapshot</h3>
                 <ul class="space-y-4 mt-6 text-white/90">
-                    <li class="flex items-center justify-between">
+                    <li class="flex items-center justify-between hero-card-text" style="--delay: 0.3s">
                         <div>
                             <p class="font-medium text-white">SafeVoyage Plus</p>
                             <p class="text-sm text-white/70">Worldwide + U.S.</p>
                         </div>
                         <p class="text-2xl font-semibold text-white">$32<span class="text-base font-normal text-white/70">/mo</span></p>
                     </li>
-                    <li class="flex items-center justify-between">
+                    <li class="flex items-center justify-between hero-card-text" style="--delay: 0.45s">
                         <div>
                             <p class="font-medium text-white">CampusCare Essential</p>
                             <p class="text-sm text-white/70">Emergency + wellness</p>
                         </div>
                         <p class="text-2xl font-semibold text-white">$41<span class="text-base font-normal text-white/70">/mo</span></p>
                     </li>
-                    <li class="flex items-center justify-between">
+                    <li class="flex items-center justify-between hero-card-text" style="--delay: 0.6s">
                         <div>
                             <p class="font-medium text-white">Atlas Explorer</p>
                             <p class="text-sm text-white/70">Adventure-ready</p>
@@ -60,7 +60,7 @@
                         <p class="text-2xl font-semibold text-white">$55<span class="text-base font-normal text-white/70">/mo</span></p>
                     </li>
                 </ul>
-                <div class="mt-8 flex items-center justify-between text-sm text-white/60">
+                <div class="mt-8 flex items-center justify-between text-sm text-white/70 hero-card-text" style="--delay: 0.75s">
                     <span>Auto-refresh every 30s</span>
                     <span>Secure &amp; private</span>
                 </div>
@@ -106,18 +106,23 @@
     </div>
 </section>
 
-<section class="max-w-5xl mx-auto px-6 pb-24">
-    <div class="rounded-3xl bg-white shadow-floating p-10 flex flex-col md:flex-row items-center justify-between gap-8">
-        <div>
-            <p class="text-sm font-semibold text-brand/60 uppercase tracking-wide">Trusted by students</p>
-            <p class="text-2xl font-semibold mt-2">From New Haven to San Diego, Insurance Buddy powers onboarding for top U.S. universities.</p>
-        </div>
-        <div class="flex flex-wrap gap-3 text-sm text-brand/70">
-            <span class="chip">Yale</span>
-            <span class="chip">MIT</span>
-            <span class="chip">Columbia</span>
-            <span class="chip">UCLA</span>
-            <span class="chip">Rice</span>
+<section class="max-w-6xl mx-auto px-6 pb-24">
+    <div class="partner-band">
+        <div class="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
+            <div class="space-y-4 max-w-2xl">
+                <p class="text-sm font-semibold text-white/70 uppercase tracking-[0.3em]">Trusted by students</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-white leading-tight">From New Haven to Los Angeles, campus health teams rely on Insurance Buddy for onboarding and compliance.</h2>
+                <p class="text-white/80">We collaborate directly with international student offices to tailor recommendations, automate waiver checks, and keep coverage documentation up to date.</p>
+            </div>
+            <div class="partner-logo-grid">
+                {% for university in partner_universities %}
+                <a href="{{ university.url }}" class="partner-logo-card" style="--delay: {{ university.delay }};" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ university.logo }}" alt="{{ university.name }} logo" class="partner-logo" loading="lazy" />
+                </a>
+                {% empty %}
+                <p class="text-white/80 text-sm">Partner universities coming soon.</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </section>

@@ -2,7 +2,39 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request, 'home.html')
+    universities = [
+        {
+            'name': 'Yale University',
+            'logo': 'https://upload.wikimedia.org/wikipedia/commons/2/20/Yale_University_Shield_1.svg',
+            'url': 'https://www.yale.edu/',
+        },
+        {
+            'name': 'Massachusetts Institute of Technology',
+            'logo': 'https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_logo.svg',
+            'url': 'https://www.mit.edu/',
+        },
+        {
+            'name': 'Columbia University',
+            'logo': 'https://upload.wikimedia.org/wikipedia/commons/1/10/Columbia_University_Logo.svg',
+            'url': 'https://www.columbia.edu/',
+        },
+        {
+            'name': 'University of California, Los Angeles',
+            'logo': 'https://upload.wikimedia.org/wikipedia/commons/4/47/UCLA_Bruins_logo.svg',
+            'url': 'https://www.ucla.edu/',
+        },
+        {
+            'name': 'Rice University',
+            'logo': 'https://upload.wikimedia.org/wikipedia/en/7/7b/Rice_Owls_logo.svg',
+            'url': 'https://www.rice.edu/',
+        },
+    ]
+
+    for index, university in enumerate(universities):
+        university['delay'] = f'{0.1 * index:.1f}s'
+
+    context = {'partner_universities': universities}
+    return render(request, 'home.html', context)
 
 
 def about(request):
