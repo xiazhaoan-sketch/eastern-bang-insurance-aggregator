@@ -3,9 +3,9 @@
 
 {% block content %}
 <section class="max-w-3xl mx-auto px-6 py-24 space-y-8 text-center">
-    <p class="text-sm uppercase tracking-[0.3em] text-brand/60">We are here to help</p>
-    <h1 class="text-4xl font-semibold">Let’s talk about coverage, partnerships, or onboarding.</h1>
-    <p class="text-brand/70">Email us at <a href="mailto:support@insurancebuddy.com" class="font-semibold text-brand">support@insurancebuddy.com</a> or use the form below. We respond within one business day.</p>
+    <p class="text-sm uppercase tracking-[0.3em] text-brand/60">{{ contact_content.kicker }}</p>
+    <h1 class="text-4xl font-semibold">{{ contact_content.headline }}</h1>
+    <p class="text-brand/70">Email us at <a href="mailto:{{ contact_content.support_email }}" class="font-semibold text-brand">{{ contact_content.support_email }}</a> or use the form below. {{ contact_content.intro }}</p>
 
     <div class="card-panel max-w-2xl mx-auto">
         <form method="post" class="space-y-4">

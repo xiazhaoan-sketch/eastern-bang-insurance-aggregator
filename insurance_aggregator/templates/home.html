@@ -6,31 +6,25 @@
     <div class="animated-gradient" aria-hidden="true"></div>
     <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 grid gap-12 lg:grid-cols-2 items-center">
         <div class="space-y-8">
-            <p class="text-sm uppercase tracking-[0.2em] text-white/70">For international students in the U.S.</p>
+            <p class="text-sm uppercase tracking-[0.2em] text-white/70">{{ home_content.hero_kicker }}</p>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
-                Find the Right Travel &amp; Health Insurance in Minutes.
+                {{ home_content.hero_headline }}
             </h1>
             <p class="text-lg text-white/80 max-w-xl">
-                Compare trusted providers, check your eligibility, and get covered today.
-                Insurance Buddy surfaces the best options with real-time data and intuitive filters inspired by the way students actually search.
+                {{ home_content.hero_subheadline }}
             </p>
             <div class="flex flex-wrap items-center gap-4">
-                <a href="{% url 'product' %}" class="gradient-button text-base">Compare Plans</a>
-                <a href="{% url 'about' %}" class="text-base font-semibold text-white/80 hover:text-white transition">Learn more</a>
+                <a href="{{ home_content.primary_cta_url }}" class="gradient-button text-base">{{ home_content.primary_cta_label }}</a>
+                <a href="{{ home_content.secondary_cta_url }}" class="text-base font-semibold text-white/80 hover:text-white transition">{{ home_content.secondary_cta_label }}</a>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10">
+                {% for stat in home_stats %}
                 <div>
-                    <p class="text-3xl font-semibold">92+</p>
-                    <p class="text-sm text-white/70">Active plans</p>
+                    <p class="text-3xl font-semibold">{{ stat.value }}</p>
+                    <p class="text-sm text-white/70">{{ stat.label }}</p>
+                    <p class="text-xs text-white/60">{{ stat.description }}</p>
                 </div>
-                <div>
-                    <p class="text-3xl font-semibold">18</p>
-                    <p class="text-sm text-white/70">Trusted insurers</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-semibold">48 hrs</p>
-                    <p class="text-sm text-white/70">Average approval</p>
-                </div>
+                {% endfor %}
             </div>
         </div>
         <div class="relative flex justify-center lg:justify-end">
@@ -73,36 +67,13 @@
 
 <section class="max-w-6xl mx-auto px-6 py-20">
     <div class="grid gap-8 md:grid-cols-3">
+        {% for feature in home_features %}
         <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M3 4h18M3 12h18M3 20h18" stroke-width="2" stroke-linecap="round"></path>
-                </svg>
-            </div>
-            <h3 class="text-xl font-semibold">Real-Time Data</h3>
-            <p class="text-sm text-brand/70">We gather data from trusted providers automatically.</p>
+            <div class="feature-icon text-2xl">{{ feature.icon }}</div>
+            <h3 class="text-xl font-semibold">{{ feature.title }}</h3>
+            <p class="text-sm text-brand/70">{{ feature.description }}</p>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M11 5h10M11 9h7M11 13h4" stroke-width="2" stroke-linecap="round"></path>
-                    <circle cx="4" cy="5" r="1" fill="currentColor"></circle>
-                    <circle cx="4" cy="9" r="1" fill="currentColor"></circle>
-                    <circle cx="4" cy="13" r="1" fill="currentColor"></circle>
-                </svg>
-            </div>
-            <h3 class="text-xl font-semibold">Smart Filters</h3>
-            <p class="text-sm text-brand/70">Sort by price, coverage, or plan type with one tap.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-            </div>
-            <h3 class="text-xl font-semibold">Student-Focused</h3>
-            <p class="text-sm text-brand/70">Tailored for international students studying in the U.S.</p>
-        </div>
+        {% endfor %}
     </div>
 </section>
 
@@ -111,15 +82,15 @@
         <div class="partner-band__glow" aria-hidden="true"></div>
         <div class="partner-band__content">
             <div class="space-y-4 max-w-2xl">
-                <p class="text-sm font-semibold text-white/70 uppercase tracking-[0.3em]">Trusted by students</p>
-                <h2 class="text-3xl md:text-4xl font-semibold text-white leading-tight">From New Haven to Los Angeles, campus health teams rely on Insurance Buddy for onboarding and compliance.</h2>
+                <p class="text-sm font-semibold text-white/70 uppercase tracking-[0.3em]">{{ home_content.trust_heading }}</p>
+                <h2 class="text-3xl md:text-4xl font-semibold text-white leading-tight">{{ home_content.trust_body }}</h2>
                 <p class="text-white/80">We collaborate directly with international student offices to tailor recommendations, automate waiver checks, and keep coverage documentation up to date.</p>
             </div>
             <div class="partner-logo-wall">
                 {% for university in partner_universities %}
-                <a href="{{ university.url }}" class="partner-logo-card" style="--delay: {{ university.delay }};" target="_blank" rel="noopener noreferrer">
+                <a href="{{ university.website }}" class="partner-logo-card" style="--delay: {{ university.delay }};" target="_blank" rel="noopener noreferrer">
                     <div class="partner-logo-wrap">
-                        <img src="{{ university.logo }}" alt="{{ university.name }} logo" class="partner-logo" loading="lazy" />
+                        <img src="{{ university.logo_url }}" alt="{{ university.name }} logo" class="partner-logo" loading="lazy" />
                     </div>
                     <div class="partner-logo-meta">
                         <p class="partner-name">{{ university.name }}</p>

@@ -5,29 +5,21 @@
 <section class="relative overflow-hidden">
     <div class="soft-gradient" aria-hidden="true"></div>
     <div class="max-w-5xl mx-auto px-6 py-24 relative z-10 space-y-10 text-center">
-        <p class="text-sm uppercase tracking-[0.3em] text-brand/60">Our mission</p>
-        <h1 class="text-4xl font-semibold">We make insurance simple for international students.</h1>
-        <p class="text-lg text-brand/70">Insurance Buddy blends human support with automation so that every student can secure the right coverage for study, travel, and everyday campus life. We translate complex policy language into transparent insights and surface the choices that matter.</p>
+        <p class="text-sm uppercase tracking-[0.3em] text-brand/60">{{ about_content.kicker }}</p>
+        <h1 class="text-4xl font-semibold">{{ about_content.headline }}</h1>
+        <p class="text-lg text-brand/70">{{ about_content.intro }}</p>
     </div>
 </section>
 
 <section class="max-w-5xl mx-auto px-6 pb-24">
     <div class="grid gap-8 md:grid-cols-3">
+        {% for value in about_values %}
         <div class="story-card">
-            <div class="story-icon">🔍</div>
-            <h3 class="text-xl font-semibold">Transparency</h3>
-            <p class="text-sm text-brand/70">Clear benefits, exclusions, and pricing so you always know what you are paying for.</p>
+            <div class="story-icon">{{ value.icon }}</div>
+            <h3 class="text-xl font-semibold">{{ value.title }}</h3>
+            <p class="text-sm text-brand/70">{{ value.description }}</p>
         </div>
-        <div class="story-card">
-            <div class="story-icon">📊</div>
-            <h3 class="text-xl font-semibold">Accuracy</h3>
-            <p class="text-sm text-brand/70">We verify every data point and refresh provider feeds multiple times a day.</p>
-        </div>
-        <div class="story-card">
-            <div class="story-icon">🤝</div>
-            <h3 class="text-xl font-semibold">Support</h3>
-            <p class="text-sm text-brand/70">Live chat, multilingual onboarding, and dedicated campus partnerships.</p>
-        </div>
+        {% endfor %}
     </div>
 </section>
 {% endblock %}

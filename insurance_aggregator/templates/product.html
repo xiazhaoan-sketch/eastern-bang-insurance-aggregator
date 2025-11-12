@@ -4,9 +4,9 @@
 {% block content %}
 <section class="max-w-6xl mx-auto px-6 py-20 space-y-16">
     <div class="space-y-4">
-        <p class="text-sm uppercase tracking-[0.2em] text-brand/60">Plan builder</p>
-        <h1 class="text-4xl font-semibold text-brand">Design the perfect coverage mix.</h1>
-        <p class="text-lg text-brand/70 max-w-3xl">Build profiles, search cities, and review side-by-side comparisons powered entirely by our curated static dataset. Filter by member needs, age, or campus to surface the right match in seconds.</p>
+        <p class="text-sm uppercase tracking-[0.2em] text-brand/60">{{ product_content.kicker|default:'Plan builder' }}</p>
+        <h1 class="text-4xl font-semibold text-brand">{{ product_content.headline|default:'Design the perfect coverage mix.' }}</h1>
+        <p class="text-lg text-brand/70 max-w-3xl">{{ product_content.subheadline|default:'Build profiles, search cities, and review side-by-side comparisons powered entirely by our curated static dataset.' }}</p>
         <p class="text-sm text-brand/60">Showing <span class="font-semibold text-brand">{{ results_count }}</span> matching plans.</p>
     </div>
 
@@ -53,6 +53,12 @@
                 <p class="text-sm font-semibold text-brand/60">4. Enter Details</p>
                 <p class="text-sm text-brand/60 mt-2">{{ plan_summary }}</p>
                 <p class="text-xs text-brand/50">{{ plan_summary_secondary }}</p>
+                {% if product_content.summary_line %}
+                <p class="text-xs text-brand/50">{{ product_content.summary_line }}</p>
+                {% endif %}
+                {% if product_content.summary_secondary %}
+                <p class="text-xs text-brand/50">{{ product_content.summary_secondary }}</p>
+                {% endif %}
                 {% if fallback_to_all %}
                 <p class="text-xs text-amber-600 mt-2 font-medium">No exact matches for your filters—showing the closest available plans.</p>
                 {% endif %}
