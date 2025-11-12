@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block title %}Insurance Buddy | Compare Plans{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-6 py-20 space-y-16">
+    <div class="space-y-6">
+        <p class="text-sm uppercase tracking-[0.2em] text-brand/60">Plan builder</p>
+        <h1 class="text-4xl font-semibold text-brand">Design the perfect coverage mix.</h1>
+        <p class="text-lg text-brand/70 max-w-3xl">Build profiles, search cities, and review side-by-side comparisons before committing. Every interaction feels immediate thanks to smooth transitions, gradient buttons, and curated defaults.</p>
+    </div>
+
+    <div class="grid gap-10 lg:grid-cols-2">
+        <div class="card-panel space-y-6">
+            <div>
+                <p class="text-sm font-semibold text-brand/60">1. Select Members</p>
+                <div class="mt-4 grid grid-cols-2 gap-3">
+                    {% for member in member_options %}
+                    <button type="button" class="select-tile">{{ member }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-brand/60">2. Select Age</p>
+                <div class="mt-4 flex items-center gap-4">
+                    <input type="range" min="18" max="70" value="24" class="w-full accent-[#635bff]" />
+                    <div class="range-display">24</div>
+                </div>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-brand/60">3. Select City</p>
+                <div class="mt-4">
+                    <input list="cities" placeholder="Start typing a U.S. city" class="input-field" />
+                    <datalist id="cities">
+                        {% for city in cities %}
+                        <option value="{{ city }}"></option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+            </div>
+        </div>
+        <div class="card-panel space-y-6">
+            <div>
+                <p class="text-sm font-semibold text-brand/60">4. Enter Details</p>
+                <p class="text-sm text-brand/60 mt-2">{{ plan_summary }}</p>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="form-label">Full name</label>
+                    <input type="text" placeholder="Aanya Patel" class="input-field" />
+                </div>
+                <div>
+                    <label class="form-label">Email</label>
+                    <input type="email" placeholder="aanya@university.edu" class="input-field" />
+                </div>
+                <button type="button" class="gradient-button w-full">Unlock Matches</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <h2 class="text-2xl font-semibold">Plans curated for you</h2>
+            <p class="text-sm text-brand/60">Transparent pricing, instant confirmation, and flexible cancellation.</p>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2">
+            {% for plan in plans %}
+            <div class="plan-card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm uppercase tracking-wide text-brand/60">{{ plan.category }}</p>
+                        <h3 class="text-xl font-semibold">{{ plan.name }}</h3>
+                    </div>
+                    <p class="text-3xl font-semibold">${{ plan.price }}<span class="text-base font-normal">/mo</span></p>
+                </div>
+                <ul class="mt-6 space-y-2 text-sm text-brand/70">
+                    {% for perk in plan.perks %}
+                    <li class="flex items-center gap-2"><span class="perk-dot"></span>{{ perk }}</li>
+                    {% endfor %}
+                </ul>
+                <button class="gradient-button w-full mt-6">Select Plan</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="space-y-6">
+        <h2 class="text-2xl font-semibold">Compare plans side by side</h2>
+        <div class="overflow-hidden rounded-3xl bg-white shadow-floating">
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-left">
+                    <thead class="bg-[#f6f9fc] text-xs uppercase tracking-wide text-brand/60">
+                        <tr>
+                            <th class="px-6 py-4">Benefit</th>
+                            {% for plan in comparison_plans %}
+                            <th class="px-6 py-4">{{ plan.name }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        {% for row in comparison_rows %}
+                        <tr class="border-t border-slate-100">
+                            <td class="px-6 py-4 font-semibold">{{ row.benefit }}</td>
+                            {% for value in row.values %}
+                            <td class="px-6 py-4 text-brand/70">{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block body_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const rangeInput = document.querySelector('input[type=\"range\"]');
+        const display = document.querySelector('.range-display');
+        if (rangeInput && display) {
+            const updateDisplay = () => {
+                display.textContent = rangeInput.value;
+            };
+            rangeInput.addEventListener('input', updateDisplay);
+            updateDisplay();
+        }
+    });
+</script>
+{% endblock %}

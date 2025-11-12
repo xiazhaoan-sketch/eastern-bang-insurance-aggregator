@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}Insurance Buddy | Compare Travel & Health Insurance{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden bg-gradient-to-br from-[#635bff] via-[#6d89ff] to-[#80d0c7] text-white">
+    <div class="animated-gradient" aria-hidden="true"></div>
+    <div class="max-w-6xl mx-auto px-6 py-24 grid gap-12 lg:grid-cols-2 items-center">
+        <div class="space-y-8">
+            <p class="text-sm uppercase tracking-[0.2em] text-white/70">For international students in the U.S.</p>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight">
+                Find the Right Travel &amp; Health Insurance in Minutes.
+            </h1>
+            <p class="text-lg text-white/80 max-w-xl">
+                Compare trusted providers, check your eligibility, and get covered today.
+                Insurance Buddy surfaces the best options with real-time data and intuitive filters inspired by the way students actually search.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'product' %}" class="gradient-button text-base">Compare Plans</a>
+                <a href="{% url 'about' %}" class="text-base font-semibold text-white/80 hover:text-white transition">Learn more</a>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10">
+                <div>
+                    <p class="text-3xl font-semibold">92+</p>
+                    <p class="text-sm text-white/70">Active plans</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-semibold">18</p>
+                    <p class="text-sm text-white/70">Trusted insurers</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-semibold">48 hrs</p>
+                    <p class="text-sm text-white/70">Average approval</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="floating-card shadow-floating">
+                <p class="text-sm uppercase text-white/60 tracking-wide">Live Comparison</p>
+                <h3 class="text-2xl font-semibold mt-3">Coverage snapshot</h3>
+                <ul class="space-y-4 mt-6 text-white/90">
+                    <li class="flex items-center justify-between">
+                        <div>
+                            <p class="font-medium">SafeVoyage Plus</p>
+                            <p class="text-sm text-white/70">Worldwide + U.S.</p>
+                        </div>
+                        <p class="text-2xl font-semibold">$32<span class="text-base font-normal">/mo</span></p>
+                    </li>
+                    <li class="flex items-center justify-between">
+                        <div>
+                            <p class="font-medium">CampusCare Essential</p>
+                            <p class="text-sm text-white/70">Emergency + wellness</p>
+                        </div>
+                        <p class="text-2xl font-semibold">$41<span class="text-base font-normal">/mo</span></p>
+                    </li>
+                    <li class="flex items-center justify-between">
+                        <div>
+                            <p class="font-medium">Atlas Explorer</p>
+                            <p class="text-sm text-white/70">Adventure-ready</p>
+                        </div>
+                        <p class="text-2xl font-semibold">$55<span class="text-base font-normal">/mo</span></p>
+                    </li>
+                </ul>
+                <div class="mt-8 flex items-center justify-between text-sm text-white/60">
+                    <span>Auto-refresh every 30s</span>
+                    <span>Secure &amp; private</span>
+                </div>
+            </div>
+            <div class="shape shape-left" aria-hidden="true"></div>
+            <div class="shape shape-right" aria-hidden="true"></div>
+        </div>
+    </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-6 py-20">
+    <div class="grid gap-8 md:grid-cols-3">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M3 4h18M3 12h18M3 20h18" stroke-width="2" stroke-linecap="round"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold">Real-Time Data</h3>
+            <p class="text-sm text-brand/70">We gather data from trusted providers automatically.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M11 5h10M11 9h7M11 13h4" stroke-width="2" stroke-linecap="round"></path>
+                    <circle cx="4" cy="5" r="1" fill="currentColor"></circle>
+                    <circle cx="4" cy="9" r="1" fill="currentColor"></circle>
+                    <circle cx="4" cy="13" r="1" fill="currentColor"></circle>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold">Smart Filters</h3>
+            <p class="text-sm text-brand/70">Sort by price, coverage, or plan type with one tap.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold">Student-Focused</h3>
+            <p class="text-sm text-brand/70">Tailored for international students studying in the U.S.</p>
+        </div>
+    </div>
+</section>
+
+<section class="max-w-5xl mx-auto px-6 pb-24">
+    <div class="rounded-3xl bg-white shadow-floating p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+            <p class="text-sm font-semibold text-brand/60 uppercase tracking-wide">Trusted by students</p>
+            <p class="text-2xl font-semibold mt-2">From New Haven to San Diego, Insurance Buddy powers onboarding for top U.S. universities.</p>
+        </div>
+        <div class="flex flex-wrap gap-3 text-sm text-brand/70">
+            <span class="chip">Yale</span>
+            <span class="chip">MIT</span>
+            <span class="chip">Columbia</span>
+            <span class="chip">UCLA</span>
+            <span class="chip">Rice</span>
+        </div>
+    </div>
+</section>
+{% endblock %}
