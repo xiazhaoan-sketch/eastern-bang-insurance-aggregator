@@ -108,16 +108,23 @@
 
 <section class="max-w-6xl mx-auto px-6 pb-24">
     <div class="partner-band">
-        <div class="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
+        <div class="partner-band__glow" aria-hidden="true"></div>
+        <div class="partner-band__content">
             <div class="space-y-4 max-w-2xl">
                 <p class="text-sm font-semibold text-white/70 uppercase tracking-[0.3em]">Trusted by students</p>
                 <h2 class="text-3xl md:text-4xl font-semibold text-white leading-tight">From New Haven to Los Angeles, campus health teams rely on Insurance Buddy for onboarding and compliance.</h2>
                 <p class="text-white/80">We collaborate directly with international student offices to tailor recommendations, automate waiver checks, and keep coverage documentation up to date.</p>
             </div>
-            <div class="partner-logo-grid">
+            <div class="partner-logo-wall">
                 {% for university in partner_universities %}
                 <a href="{{ university.url }}" class="partner-logo-card" style="--delay: {{ university.delay }};" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ university.logo }}" alt="{{ university.name }} logo" class="partner-logo" loading="lazy" />
+                    <div class="partner-logo-wrap">
+                        <img src="{{ university.logo }}" alt="{{ university.name }} logo" class="partner-logo" loading="lazy" />
+                    </div>
+                    <div class="partner-logo-meta">
+                        <p class="partner-name">{{ university.name }}</p>
+                        <p class="partner-campus">{{ university.campus }}</p>
+                    </div>
                 </a>
                 {% empty %}
                 <p class="text-white/80 text-sm">Partner universities coming soon.</p>

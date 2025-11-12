@@ -1,32 +1,38 @@
 from django.shortcuts import render
+from django.templatetags.static import static
 
 
 def home(request):
     universities = [
         {
             'name': 'Yale University',
-            'logo': 'https://upload.wikimedia.org/wikipedia/commons/2/20/Yale_University_Shield_1.svg',
+            'logo': static('img/partners/yale.svg'),
             'url': 'https://www.yale.edu/',
+            'campus': 'New Haven, CT',
         },
         {
             'name': 'Massachusetts Institute of Technology',
-            'logo': 'https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_logo.svg',
+            'logo': static('img/partners/mit.svg'),
             'url': 'https://www.mit.edu/',
+            'campus': 'Cambridge, MA',
         },
         {
             'name': 'Columbia University',
-            'logo': 'https://upload.wikimedia.org/wikipedia/commons/1/10/Columbia_University_Logo.svg',
+            'logo': static('img/partners/columbia.svg'),
             'url': 'https://www.columbia.edu/',
+            'campus': 'New York, NY',
         },
         {
             'name': 'University of California, Los Angeles',
-            'logo': 'https://upload.wikimedia.org/wikipedia/commons/4/47/UCLA_Bruins_logo.svg',
+            'logo': static('img/partners/ucla.svg'),
             'url': 'https://www.ucla.edu/',
+            'campus': 'Los Angeles, CA',
         },
         {
             'name': 'Rice University',
-            'logo': 'https://upload.wikimedia.org/wikipedia/en/7/7b/Rice_Owls_logo.svg',
+            'logo': static('img/partners/rice.svg'),
             'url': 'https://www.rice.edu/',
+            'campus': 'Houston, TX',
         },
     ]
 
