@@ -35,15 +35,32 @@
 <body class="bg-[#f6f9fc] text-brand font-sans antialiased selection:bg-[#c7d2fe] selection:text-brand scroll-smooth">
     <div class="min-h-screen flex flex-col">
         <header class="sticky top-0 z-40 bg-[#f6f9fc]/90 backdrop-blur border-b border-white/30">
-            <div class="max-w-6xl mx-auto px-6 py-4 flex flex-wrap items-center gap-4 md:flex-nowrap">
-                <a href="{% url 'home' %}" class="text-xl font-semibold tracking-tight flex-1">Insurance Buddy</a>
-                <nav class="order-3 w-full md:order-2 md:w-auto flex flex-wrap gap-4 text-sm font-medium justify-center md:justify-end">
+            <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+                <a href="{% url 'home' %}" class="text-xl font-semibold tracking-tight flex-shrink-0">Insurance Buddy</a>
+            <button id="navToggle" class="md:hidden p-2 rounded-full border border-brand/10 text-brand hover:bg-white/60 transition" aria-label="Toggle navigation">
+                <svg id="navIconOpen" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round"></path>
+                </svg>
+                <svg id="navIconClose" class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M6 6l12 12M6 18L18 6" stroke-width="2" stroke-linecap="round"></path>
+                </svg>
+            </button>
+                <nav id="mainNav" class="hidden md:flex items-center gap-6 text-sm font-medium">
                     <a href="{% url 'home' %}" class="nav-link">Home</a>
                     <a href="{% url 'about' %}" class="nav-link">About</a>
                     <a href="{% url 'product' %}" class="nav-link">Product</a>
                     <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+                    <a href="{% url 'product' %}" class="gradient-button text-sm font-semibold md:ml-2">Compare Plans</a>
                 </nav>
-                <a href="{% url 'product' %}" class="gradient-button text-sm font-semibold order-2 md:order-3">Compare Plans</a>
+            </div>
+            <div id="mobileNav" class="md:hidden hidden border-t border-white/50 bg-[#f6f9fc]/95 backdrop-blur">
+                <div class="px-6 py-4 flex flex-col gap-3 text-sm font-semibold text-brand">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                    <a href="{% url 'about' %}" class="nav-link">About</a>
+                    <a href="{% url 'product' %}" class="nav-link">Product</a>
+                    <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+                    <a href="{% url 'product' %}" class="gradient-button w-full text-center">Compare Plans</a>
+                </div>
             </div>
         </header>
 
@@ -90,6 +107,28 @@
         </footer>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.getElementById('navToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            const iconOpen = document.getElementById('navIconOpen');
+            const iconClose = document.getElementById('navIconClose');
+
+            toggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+                iconOpen.classList.toggle('hidden');
+                iconClose.classList.toggle('hidden');
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    mobileNav.classList.add('hidden');
+                    iconOpen.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                }
+            });
+        });
+    </script>
     {% block body_scripts %}{% endblock %}
 </body>
 </html>

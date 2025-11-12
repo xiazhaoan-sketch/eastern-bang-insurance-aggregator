@@ -319,7 +319,7 @@
 
 .select-tile--active {
     background: linear-gradient(120deg, rgba(99, 91, 255, 0.18), rgba(128, 208, 199, 0.18));
-    box-shadow: inset 0 0 0 1.5px rgba(99, 91, 255, 0.5);
+    box-shadow: inset 0 0 0 2.5px rgba(99, 91, 255, 0.6), 0 10px 30px rgba(99, 91, 255, 0.2);
 }
 
 .select-tile-icon {
@@ -418,6 +418,14 @@
 .plan-tag--subtle {
     background: rgba(10, 37, 64, 0.05);
     font-weight: 500;
+}
+
+.plan-tag--pill {
+    align-self: flex-start;
+    background: rgba(99, 91, 255, 0.15);
+    color: var(--brand);
+    margin-left: auto;
+    font-size: 0.8rem;
 }
 
 .soft-gradient {
@@ -538,6 +546,29 @@
     .nav-link {
         font-size: 0.85rem;
     }
+
+    .select-tile {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .plan-card {
+        padding: 1.5rem;
+    }
+
+    .plan-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .plan-tag--pill {
+        margin-left: 0;
+    }
+}
+
+.nav-link {
+    display: inline-block;
+    padding: 0.25rem 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -85,13 +85,15 @@
         <div class="grid gap-6 md:grid-cols-2">
             {% for plan in featured_plans %}
             <div class="plan-card">
-                <div class="flex items-start justify-between gap-4">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div class="space-y-1">
                         <p class="text-xs uppercase tracking-wide text-brand/60">{{ plan.provider }}</p>
                         <h3 class="text-xl font-semibold leading-tight">{{ plan.plan_name }}</h3>
                         <p class="text-sm text-brand/60">{{ plan.audience_label }}</p>
                     </div>
-                    <span class="plan-tag">{{ plan.cities_display }}</span>
+                    {% if plan.cities_display %}
+                    <span class="plan-tag plan-tag--pill">{{ plan.cities_display }}</span>
+                    {% endif %}
                 </div>
                 <dl class="plan-metrics">
                     <div>
